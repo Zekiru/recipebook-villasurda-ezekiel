@@ -37,14 +37,10 @@ pip install -r requirements.txt
 4. Run the Development Server
 ```bash
 python recipebook/manage.py runserver
-<<<<<<< HEAD
-=======
-python mysite/manage.py runserver
->>>>>>> df42fe6 (Project Setup Guide in README.md)
-=======
->>>>>>> 242f903 (Resolve README.md Conflict)
 ```
 
 ### Note
 
 The .env file is already tracked in this repository for the sake of convinience. (In actual practice this will be ommited)
+
+CSCI 40 - Lab 1 Submission
