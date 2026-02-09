@@ -1,17 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h2>Recipes</h2>
-  <ul>
+  <h2>List of Recipes</h2>
+  <div class="recipe-wrapper">
     {% for recipe in data.recipes %}
-      <li>
-        <a href="{{ recipe.link }}">{{ recipe.name }}</a>
+      <div class="recipe-item">
+        <h3>{{ recipe.name }}</h3>
+        <a href="{{ recipe.link }}" class="btn">View Recipe</a>
         <ul>
           {% for ingredient in recipe.ingredients %}
             <li>{{ ingredient.name }} — {{ ingredient.quantity }}</li>
           {% endfor %}
         </ul>
-      </li>
+      </div>
     {% endfor %}
-  </ul>
+    </div>
 {% endblock %}

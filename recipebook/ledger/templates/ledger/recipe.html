@@ -1,13 +1,11 @@
 {% extends "base.html" %}
 
-<!-- TO-DO: Fix Design -->
-
 {% block content %}
   <h2>{{ data.name }}</h2>
-  <a href="/recipes/list">Back</a>
   <ul>
     {% for ingredient in data.ingredients %}
       <li>{{ ingredient.name }} — {{ ingredient.quantity }}</li>
     {% endfor %}
   </ul>
+  <a href="/recipes/list" class="back-btn btn">Back</a>
 {% endblock %}

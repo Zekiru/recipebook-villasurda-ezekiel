@@ -12,6 +12,12 @@
     <div id="content">
         {% block content %}{% endblock %}
     </div>
-    {% block scripts %}{% endblock %}
+    {% block scripts %}
+        <script>
+            function href(link) {
+                window.location.href = link;
+            }
+        </script>
+    {% endblock %}
 </body>
 </html>
