@@ -1,0 +1,30 @@
+# Python
+*.pyc
+__pycache__
+*.log
+.Python
+env/
+venv/
+lib/
+lib64/
+include/
+bin/
+share/
+pip-log.txt
+pip-delete-this-directory.txt
+htmlcov/
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+target/
+
+# Django-specific
+*.mo
+*.pot
+local_settings.py
+# .env
+db.sqlite3
+media/
+static_collected/
