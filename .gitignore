@@ -1,8 +1,5 @@
-# Python
-*.pyc
-__pycache__
-*.log
-.Python
+# Virtual environments
+myenv/
 env/
 venv/
 lib/
@@ -10,6 +7,12 @@ lib64/
 include/
 bin/
 share/
+
+# Python
+*.pyc
+__pycache__
+*.log
+.Python
 pip-log.txt
 pip-delete-this-directory.txt
 htmlcov/
