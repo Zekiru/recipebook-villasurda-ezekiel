@@ -3,10 +3,14 @@ from django.conf import settings
 from django.shortcuts import redirect
 from django.views.generic import TemplateView
 
+def get_static_path(filename):
+    return os.path.join(settings.BASE_DIR, 'static/data', filename)
+
+
 PATH = {
-    'list': os.path.join(settings.BASE_DIR, 'static/data/recipe_list.json'),
-    'recipe1': os.path.join(settings.BASE_DIR, 'static/data/recipe_1.json'),
-    'recipe2': os.path.join(settings.BASE_DIR, 'static/data/recipe_2.json'),
+    'list': get_static_path('recipe_list.json'),
+    'recipe1': get_static_path('recipe_1.json'),
+    'recipe2': get_static_path('recipe_2.json'),
 }
 
 
@@ -26,18 +30,19 @@ def load_json_data(path):
 
 class RecipeListView(TemplateView):
     template_name = 'ledger/recipe_list.html'
+    static_path = PATH.get('list')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['data'] = load_json_data(PATH.get('list'))
+        context['data'] = load_json_data(self.static_path)
         return context
 
 
 class RecipeView(TemplateView):
     template_name = 'ledger/recipe.html'
-    recipe_path = PATH.get('recipe1')
+    static_path = PATH.get('recipe1')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['data'] = load_json_data(self.recipe_path)
+        context['data'] = load_json_data(self.static_path)
         return context
