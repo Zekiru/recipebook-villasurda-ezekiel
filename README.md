@@ -41,6 +41,6 @@ python recipebook/manage.py runserver
 
 ### Note
 
-The .env file is already tracked in this repository for the sake of convinience. (In actual practice this will be ommited)
+The .env file is already tracked in this repository for the sake of convenience. (In actual practice this will be ommited)
 
 CSCI 40 - Lab 1 Submission
