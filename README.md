@@ -34,13 +34,27 @@ source myenv/bin/activate
 pip install -r requirements.txt
 ```
 
-4. Run the Development Server
+4. Generate the Secret Key
 ```bash
-python recipebook/manage.py runserver
+python3 -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+
 ```
 
-### Note
+5. Use the Secret Key in the .env file
+```bash
+touch <project-name>/.env
+```
 
-The .env file is already tracked in this repository for the sake of convenience. (In actual practice this will be ommited)
+```bash
+# .env
+SECRET_KEY='your_generated_secret_key_here'
+```
 
-CSCI 40 - Lab 1 Submission
+6. Run the Development Server
+```bash
+python <project-name>/manage.py runserver
+```
+
+### Notes
+
+CSCI 40 - Lab Submissions
