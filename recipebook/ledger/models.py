@@ -1,7 +1,4 @@
 from django.db import models
-
-# Create your models here.
-from django.db import models
 from django.urls import reverse
 
 
@@ -12,7 +9,7 @@ class Ingredient(models.Model):
         return self.name
     
     def get_absolute_url(self):
-        return reverse('ingredient-detail', args=[str(self.id)])
+        return reverse('ingredient_detail', args=[str(self.id)])
     
     class Meta:
         verbose_name = 'ingredient'
@@ -26,7 +23,7 @@ class Recipe(models.Model):
         return self.name
     
     def get_absolute_url(self):
-        return reverse('recipe-detail', args=[str(self.id)])
+        return reverse('recipe_detail', args=[str(self.id)])
     
     class Meta:
         verbose_name = 'recipe'
@@ -43,6 +40,3 @@ class RecipeIngredient(models.Model):
         Ingredient, 
         on_delete=models.CASCADE
     )
-    
-    def __str__(self):
-        return f"{self.quantity} of {self.ingredient.name} for {self.recipe.name}"
