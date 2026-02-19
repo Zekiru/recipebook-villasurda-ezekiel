@@ -3,16 +3,11 @@
 {% block content %}
   <h2>List of Recipes</h2>
   <div class="recipe-wrapper">
-    {% for recipe in data.recipes %}
+    {% for recipe in recipes %}
       <div class="recipe-item">
         <h3>{{ recipe.name }}</h3>
-        <a href="{{ recipe.link }}" class="btn">View Recipe</a>
-        <ul>
-          {% for ingredient in recipe.ingredients %}
-            <li>{{ ingredient.name }} — {{ ingredient.quantity }}</li>
-          {% endfor %}
-        </ul>
+        <a href="{{ recipe.get_absolute_url }}" class="btn">View Recipe</a>
       </div>
     {% endfor %}
-    </div>
+  </div>
 {% endblock %}
