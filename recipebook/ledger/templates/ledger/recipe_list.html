@@ -6,7 +6,7 @@
     {% for recipe in recipes %}
       <div class="list-item">
         <h3>{{ recipe.name }}</h3>
-        <a href="{{ recipe.get_absolute_url }}" class="btn">View Recipe</a>
+        <a href="{{ recipe.get_absolute_url }}" class="align-left margin-left btn">View Recipe</a>
       </div>
     {% empty %}
       <p>No recipes available.</p>
