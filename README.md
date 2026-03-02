@@ -50,7 +50,13 @@ touch <project-name>/.env
 SECRET_KEY='your_generated_secret_key_here'
 ```
 
-6. Run the Development Server
+6. Migrate Models (if needed)
+```bash
+python <project-name>/manage.py makemigrations
+python <project-name>/manage.py migrate
+```
+
+7. Run the Development Server
 ```bash
 python <project-name>/manage.py runserver
 ```
