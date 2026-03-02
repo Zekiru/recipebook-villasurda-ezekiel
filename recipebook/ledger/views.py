@@ -25,10 +25,7 @@ class RecipeDetailView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['recipe'] = Recipe.objects.get(
-            id=self.kwargs['recipe_id']
-        )
-        context['ingredients'] = RecipeIngredient.objects.filter(
-            recipe_id=self.kwargs['recipe_id']
-        )
+        recipe = Recipe.objects.get(id=self.kwargs['pk'])
+        context['recipe'] = recipe
+        context['ingredients'] = recipe.ingredients.all()
         return context
