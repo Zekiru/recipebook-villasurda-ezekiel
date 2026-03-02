@@ -48,8 +48,8 @@ div {
     gap: 1rem;
 }
 
-.recipe-item {
-    background-color: rgb(255, 247, 234);
+.list-item {
+    background-color: rgb(227, 242, 255);
     border-radius: 15px;
     padding: 1.5rem 1rem;
     margin: 1rem;
@@ -90,3 +90,20 @@ a:hover {
     background-color: #2980b9;
     color: white;
 }
+
+table {
+    width: 100%;
+    border: 1px solid #dedede;
+    border-collapse: collapse;
+    margin: 1rem 0;
+}
+
+table th, table td {
+    padding: 0.75rem;
+    text-align: left;
+    border: 2px solid #dedede;
+}
+
+/* table tr:nth-child(even) {
+    background-color: #dedede;
+} */

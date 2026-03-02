@@ -2,12 +2,14 @@
 
 {% block content %}
   <h2>List of Recipes</h2>
-  <div class="recipe-wrapper">
+  <div class="list-wrapper">
     {% for recipe in recipes %}
-      <div class="recipe-item">
+      <div class="list-item">
         <h3>{{ recipe.name }}</h3>
         <a href="{{ recipe.get_absolute_url }}" class="btn">View Recipe</a>
       </div>
+    {% empty %}
+      <p>No recipes available.</p>
     {% endfor %}
   </div>
 {% endblock %}
