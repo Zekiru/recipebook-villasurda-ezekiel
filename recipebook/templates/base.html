@@ -8,10 +8,27 @@
     {% block styles %}{% endblock %}
 </head>
 <body>
-    <a href="/"><h1>Recipe Book</h1></a>
+    <header>
+        <a href="/"><h1>Recipe Book</h1></a>
+        <hr>
+    </header>
+    <nav>
+        {% if user.is_authenticated %}
+            <p>Welcome, {{ user.username }}!</p>
+            <form method="POST" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+        {% else %}
+            {% if request.path != '/accounts/login/' %}
+                <a class="btn" href="{% url 'login' %}">Login</a>
+            {% endif %}
+        {% endif %}
+    </nav>
     <div id="content">
         {% block content %}{% endblock %}
     </div>
+    <footer></footer>
     {% block scripts %}{% endblock %}
 </body>
 </html>
