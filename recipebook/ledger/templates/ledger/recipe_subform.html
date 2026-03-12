@@ -1,0 +1,21 @@
+<h3>{{ title }}s</h3>
+<div id="{{ name }}-list">
+{{ items.management_form }}
+{% for form in items %}
+    <div class="formset-row {{ name }}-form">
+    {{ form }}
+    <button type="button"
+    class="remove-btn">Remove</button>
+    </div>
+{% endfor %}
+</div>
+<button type="button" onclick="addRow('{{ name }}')"
+class="add-btn">Add {{ title }}</button>
+
+<div id="{{ name }}-empty" class="hidden">
+    <div class="formset-row {{ name }}-form">
+        {{ items.empty_form }}
+        <button type="button"class="remove-btn"
+        onclick="removeRow(this)">Remove</button>
+    </div>
+</div>

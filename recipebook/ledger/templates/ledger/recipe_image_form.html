@@ -1,9 +1,21 @@
 {% extends "base.html" %}
+{% load static %}
 
-{% block title %}Upload Image(s) | Recipe Book{% endblock %}
+{% block title %}{{ recipe.name }} Image(s) | Recipe Book{% endblock %}
 
 {% block content %}
-  <!-- TO-DO -->
+  <div class="form-wrapper">
+    <h2>Upload Image(s) for {{ recipe.name }}</h2>
+    <form class="form-group" method="POST"
+    enctype="multipart/form-data">
+      {% csrf_token %}
+      {% include "ledger/recipe_subform.html" with title='Image' name='image' items=images %}
+      <br>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
 {% endblock %}
 
-{% block scripts%}{% endblock%}
+{% block scripts%}
+<script src="{% static 'js/recipe_subform.js' %}"></script>
+{% endblock%}

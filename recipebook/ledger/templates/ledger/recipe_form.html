@@ -1,94 +1,28 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Add Recipe | Recipe Book{% endblock %}
 
 {% block content %}
   <div class="form-wrapper">
     <h2>Add Recipe</h2>
-    <form class="form-group" method="POST" enctype="multipart/form-data">
+    <form class="form-group"method="POST"
+    enctype="multipart/form-data">
       {% csrf_token %}
       {{ form }}
       <br>
-
-      <h3>Ingredients</h3>
-      <div id="ingredient-list">
-        {{ ingredients.management_form }}
-        {% for iform in ingredients %}
-          <div class="formset-row ingredient-form">
-            {{ iform }}
-            <button type="button" class="remove-btn">Remove</button>
-          </div>
-        {% endfor %}
-      </div>
-      <button type="button" onclick="addRow('ingredient')"
-      class="add-btn">Add Ingredient</button>
+      {% include "ledger/recipe_subform.html" with title='Ingredient' name='ingredient' items=ingredients %}
       <br>
-
-      <h3>Images</h3>
-      <div id="image-list">
-      {{ images.management_form }}
-      {% for imgform in images %}
-        <div class="formset-row image-form">
-          {{ imgform }}
-          <button type="button" class="remove-btn">Remove</button>
-        </div>
-      {% endfor %}
-      </div>
-      <button type="button" onclick="addRow('image')"
-      class="add-btn">Add Image</button>
+      {% include "ledger/recipe_subform.html" with title='Image' name='image' items=images %}
       <br>
-      
       <button type="submit">Submit</button>
     </form>
   </div>
 
   <a href="{% url 'recipe_list' %}"
   class="align-right btn">Back</a>
-
-  <!-- Empty Forms -->
-  <div id="ingredient-empty" class="hidden">
-    <div class="formset-row ingredient-form">
-      {{ ingredients.empty_form }}
-      <button type="button" class="remove-btn" onclick="removeRow(this)">Remove</button>
-    </div>
-  </div>
-
-  <div id="image-empty" class="hidden">
-    <div class="formset-row image-form">
-      {{ images.empty_form }}
-      <button type="button" class="remove-btn" onclick="removeRow(this)">Remove</button>
-    </div>
-  </div>
 {% endblock %}
 
 {% block scripts%}
-<script>
-  function addRow(type) {
-    const list = document.getElementById(`${type}-list`);
-    const totalForms = document.getElementById(`id_${type}s-TOTAL_FORMS`);
-    const count = parseInt(totalForms.value);
-    
-    let newRow = document.getElementById(`${type}-empty`).innerHTML;
-    newRow = newRow.replace(/__prefix__/g, count);
-    
-    list.insertAdjacentHTML('beforeend', newRow);
-    totalForms.value = count + 1;
-  }
-
-  function removeRow(btn) {
-    const row = btn.closest('.formset-row');
-    const deleteCheckbox = row.querySelector('input[name$="-DELETE"]');
-    
-    if (deleteCheckbox) {
-      deleteCheckbox.checked = true;
-      row.style.display = 'none';
-    } else {
-      row.remove();
-    }
-  }
-
-  document.querySelectorAll('.remove-btn').forEach(btn => {
-    btn.addEventListener('click', function() { removeRow(this); });
-  });
-</script>
+<script src="{% static 'js/recipe_subform.js' %}"></script>
 {% endblock%}
