@@ -1,25 +1,38 @@
 {% extends "base.html" %}
 
+{% block title %}{{ recipe.name }} | Recipe Book{% endblock %}
+
 {% block content %}
-  <h2>{{ recipe.name }}</h2>
-  <p>By {{ recipe.author.name }}</p>
-  {% if images %}
-  <div class="gallery-wrapper">
-    {% for image in images %}
-      <img src="{{ image.image.url }}" alt="{{ image.description }}">
-    {% endfor %}
+  <div class="row">
+    <h2 class="align-left">{{ recipe.name }}</h2>
+    <a class="btn add-btn align-right"
+    href="/">Upload Image(s)</a>
   </div>
-  <hr>
-  {% endif %}
+  <p>By {{ recipe.author.name }}</p>
+
   <div class="list-wrapper">
     <h3>Ingredients</h3>
+    {% if ingredients %}
     <ul>
       {% for ingredient in ingredients %}
         <li>{{ ingredient.quantity }} of {{ ingredient.ingredient.name }}</li>
-      {% empty %}
-        <p><i>No Ingredients Specified.</i></p>
       {% endfor %}
     </ul>
+    {% else %}
+    <p>No Ingredients Specified.</p>
+    {% endif %}
   </div>
-  <a href="/recipes/list" class="align-right btn">Back</a>
+
+  {% if images %}
+  <br><hr>
+  <div class="gallery-wrapper">
+  {% for image in images %}
+    <img src="{{ image.image.url }}"
+    alt="{{ image.description }}">
+  {% endfor %}
+  </div>
+  {% endif %}
+
+  <a href="{% url 'recipe_list' %}"
+  class="align-right btn">Back</a>
 {% endblock %}

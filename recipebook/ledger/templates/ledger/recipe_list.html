@@ -1,12 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h2>List of Recipes</h2>
+  <div class="row">
+    <h2 class="align-left">List of Recipes</h2>
+    <a class="btn add-btn align-right"
+    href="{% url 'recipe_create' %}">Add Recipe</a>
+  </div>
   <div class="list-wrapper">
     {% for recipe in recipes %}
       <div class="list-item">
         <h3>{{ recipe.name }}</h3>
-        <a href="{{ recipe.get_absolute_url }}" class="align-left margin-left btn">View Recipe</a>
+        <a href="{{ recipe.get_absolute_url }}"
+        class="align-left btn">View Recipe</a>
       </div>
     {% empty %}
       <p>No recipes available.</p>

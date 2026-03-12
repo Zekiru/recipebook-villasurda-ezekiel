@@ -18,14 +18,17 @@
             <p>Welcome, {{ user.username }}!</p>
             <form method="POST" action="{% url 'logout' %}">
                 {% csrf_token %}
-                <button type="submit">Logout</button>
+                <button type="submit"
+                class="logout-btn">Logout</button>
             </form>
         {% else %}
             {% if request.path != '/accounts/login/' %}
-                <a class="btn" href="{% url 'login' %}">Login</a>
+            <a class="btn"
+            href="{% url 'login' %}">Login</a>
             {% endif %}
         {% endif %}
     </nav>
+    <br>
     <div id="content">
         {% block content %}{% endblock %}
     </div>
