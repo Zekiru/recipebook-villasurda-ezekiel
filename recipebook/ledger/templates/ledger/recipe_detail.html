@@ -3,10 +3,23 @@
 {% block content %}
   <h2>{{ recipe.name }}</h2>
   <p>By {{ recipe.author.name }}</p>
-  <ul>
-    {% for ingredient in ingredients %}
-      <li>{{ ingredient.quantity }} of {{ ingredient.ingredient.name }}</li>
+  {% if images %}
+  <div class="gallery-wrapper">
+    {% for image in images %}
+      <img src="{{ image.image.url }}" alt="{{ image.description }}">
     {% endfor %}
-  </ul>
+  </div>
+  <hr>
+  {% endif %}
+  <div class="list-wrapper">
+    <h3>Ingredients</h3>
+    <ul>
+      {% for ingredient in ingredients %}
+        <li>{{ ingredient.quantity }} of {{ ingredient.ingredient.name }}</li>
+      {% empty %}
+        <p><i>No Ingredients Specified.</i></p>
+      {% endfor %}
+    </ul>
+  </div>
   <a href="/recipes/list" class="align-right btn">Back</a>
 {% endblock %}

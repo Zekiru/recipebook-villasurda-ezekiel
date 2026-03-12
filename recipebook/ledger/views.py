@@ -30,4 +30,5 @@ class RecipeDetailView(LoginRequiredMixin, TemplateView):
         recipe = Recipe.objects.get(id=self.kwargs['pk'])
         context['recipe'] = recipe
         context['ingredients'] = recipe.ingredients.all()
+        context['images'] = recipe.images.all()
         return context
