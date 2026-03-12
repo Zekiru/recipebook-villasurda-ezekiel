@@ -4,6 +4,7 @@ from .views import (
     RecipeListView,
     RecipeDetailView,
     RecipeCreateView,
+    RecipeAddImageView,
 )
 
 urlpatterns = [
@@ -22,5 +23,10 @@ urlpatterns = [
         'recipe/add/',
         RecipeCreateView.as_view(),
         name='recipe_create'
+    ),
+    path(
+        'recipe/<int:pk>/add_image',
+        RecipeAddImageView.as_view(),
+        name='recipe_add_image'
     ),
 ]

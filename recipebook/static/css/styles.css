@@ -74,7 +74,7 @@ div {
     margin: auto;
 }
 
-.form-wrapper {
+.form-wrapper, .form-wrapper-2 {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -83,6 +83,23 @@ div {
     width: 100%;
     max-width: 300px;
     min-width: 200px;
+}
+
+.form-wrapper-2 {
+    max-width: 600px;
+
+    & .row * {
+        align-items: start;
+        width: 100%;
+    }
+
+    & .align-left, .align-right {
+        margin: 0 1rem auto;
+    }
+
+    & select, input {
+        min-height: 2.4rem;
+    }
 }
 
 .form-group {

@@ -4,16 +4,21 @@
 {% block title %}Add Recipe | Recipe Book{% endblock %}
 
 {% block content %}
-  <div class="form-wrapper">
+  <div class="form-wrapper-2">
     <h2>Add Recipe</h2>
-    <form class="form-group"method="POST"
+    <form class="form-group" method="POST"
     enctype="multipart/form-data">
       {% csrf_token %}
       {{ form }}
       <br>
-      {% include "ledger/recipe_subform.html" with title='Ingredient' name='ingredient' items=ingredients %}
-      <br>
-      {% include "ledger/recipe_subform.html" with title='Image' name='image' items=images %}
+      <div class="row">
+        <div class="align-left">
+          {% include "ledger/recipe_subform.html" with title='Ingredient' name='ingredient' items=ingredients %}
+        </div>
+        <div class="align-right">
+          {% include "ledger/recipe_subform.html" with title='Image' name='image' items=images %}
+        </div>
+      </div>
       <br>
       <button type="submit">Submit</button>
     </form>

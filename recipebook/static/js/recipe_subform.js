@@ -1,27 +1,49 @@
-function addRow(type) {
-    const list = document.getElementById(`${type}-list`);
-    const totalForms = document.getElementById(`id_${type}s-TOTAL_FORMS`);
-    const count = parseInt(totalForms.value);
-    
-    let newRow = document.getElementById(`${type}-empty`).innerHTML;
-    newRow = newRow.replace(/__prefix__/g, count);
-    
-    list.insertAdjacentHTML('beforeend', newRow);
-    totalForms.value = count + 1;
+function addRow(name) {
+    const totalForms = document.getElementById(`id_${name}-TOTAL_FORMS`);
+    const container = document.getElementById(`${name}-list`);
+    const emptyRowElement = document.getElementById(`${name}-empty`);
+
+    const currentCount = parseInt(totalForms.value);
+    const newRowHtml = emptyRowElement.innerHTML.replace(/__prefix__/g, currentCount);
+
+    container.insertAdjacentHTML('beforeend', newRowHtml);
+    totalForms.value = currentCount + 1;
 }
 
-function removeRow(btn) {
+function removeRowImage(btn) {
     const row = btn.closest('.formset-row');
-    const deleteCheckbox = row.querySelector('input[name$="-DELETE"]');
+    const container = document.getElementById('image-list');
+    const totalForms = document.getElementById('id_image-TOTAL_FORMS');
+    
+    row.remove();
+    
+    const remainingRows = container.querySelectorAll('.image-form');
+    totalForms.value = remainingRows.length;
 
-    if (deleteCheckbox) {
-        deleteCheckbox.checked = true;
-        row.style.display = 'none';
-    } else {
-        row.remove();
-    }
+    remainingRows.forEach((r, index) => {
+        r.querySelectorAll('input, select, textarea, label').forEach(el => {
+            if (el.name) el.name = el.name.replace(/image-\d+-/, `image-${index}-`);
+            if (el.id) el.id = el.id.replace(/id_image-\d+-/, `id_image-${index}-`);
+            if (el.getAttribute('for')) el.setAttribute('for', el.getAttribute('for').replace(/id_image-\d+-/, `id_image-${index}-`));
+        });
+    });
 }
 
-document.querySelectorAll('.remove-btn').forEach(btn => {
-    btn.addEventListener('click', function() { removeRow(this); });
-});
+function removeRowIngredient(btn) {
+    const row = btn.closest('.formset-row');
+    const container = document.getElementById('ingredient-list');
+    const totalForms = document.getElementById('id_ingredient-TOTAL_FORMS');
+    
+    row.remove();
+    
+    const remainingRows = container.querySelectorAll('.ingredient-form');
+    totalForms.value = remainingRows.length;
+
+    remainingRows.forEach((r, index) => {
+        r.querySelectorAll('input, select, textarea, label').forEach(el => {
+            if (el.name) el.name = el.name.replace(/ingredient-\d+-/, `ingredient-${index}-`);
+            if (el.id) el.id = el.id.replace(/id_ingredient-\d+-/, `id_ingredient-${index}-`);
+            if (el.getAttribute('for')) el.setAttribute('for', el.getAttribute('for').replace(/id_ingredient-\d+-/, `id_ingredient-${index}-`));
+        });
+    });
+}

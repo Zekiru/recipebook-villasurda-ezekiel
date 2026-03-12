@@ -1,11 +1,18 @@
-from django.shortcuts import redirect
+from django.shortcuts import (
+    redirect,
+    get_object_or_404,
+)
 from django.urls import reverse
 
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import Recipe
+from .models import (
+    Recipe,
+    RecipeIngredient,
+    RecipeImage,
+)
 from .forms import (
     RecipeForm,
     IngredientFormSet,
@@ -57,19 +64,20 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
         post_data = self.request.POST or None
         file_data = self.request.FILES or None
 
         context['ingredients'] = IngredientFormSet(
             post_data,
-            prefix='ingredients',
+            prefix='ingredient',
+            queryset=RecipeIngredient.objects.none()
         )
         context['images'] = ImageFormSet(
-            post_data, file_data,
-            prefix='images',
+            post_data,
+            file_data,
+            prefix='image',
+            queryset=RecipeImage.objects.none()
         )
-
         return context
 
     def form_valid(self, form):
@@ -77,16 +85,59 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
         ingredients = context['ingredients']
         images = context['images']
 
-        if form.is_valid() and ingredients.is_valid() and images.is_valid():
+        if ingredients.is_valid() and images.is_valid():
             form.instance.author = self.request.user.profile
             self.object = form.save()
 
-            ingredients.instance = self.object
-            images.instance = self.object
-
-            ingredients.save()
-            images.save()
+            for formset in [ingredients, images]:
+                formset.instance = self.object
+                formset.save()
 
             return redirect(self.get_success_url())
 
         return self.form_invalid(form)
+
+
+class RecipeAddImageView(LoginRequiredMixin, TemplateView):
+    model = RecipeImage
+    template_name = 'ledger/recipe_image_form.html'
+    context_object_name = 'recipe_add_image'
+    redirect_field_name = REDIRECT_LINK
+
+    def get_recipe(self):
+        return get_object_or_404(Recipe, pk=self.kwargs['pk'])
+
+    def get_success_url(self):
+        return reverse('recipe_detail', kwargs={'pk': self.kwargs['pk']})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        recipe = self.get_recipe()
+        post_data = self.request.POST if self.request.method == 'POST' else None
+        file_data = self.request.FILES if self.request.method == 'POST' else None
+
+        context['images'] = ImageFormSet(
+            post_data,
+            file_data,
+            instance=recipe,
+            prefix='image',
+            queryset=RecipeImage.objects.none()
+        )
+        context['recipe'] = recipe
+        return context
+
+    def post(self, request, *args, **kwargs):
+        recipe = self.get_recipe()
+        formset = ImageFormSet(
+            request.POST,
+            request.FILES,
+            instance=recipe,
+            prefix='image',
+            queryset=RecipeImage.objects.none()
+        )
+
+        if formset.is_valid():
+            formset.save()
+            return redirect(self.get_success_url())
+
+        return self.render_to_response(self.get_context_data())

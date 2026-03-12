@@ -6,7 +6,8 @@
   <div class="row">
     <h2 class="align-left">{{ recipe.name }}</h2>
     <a class="btn add-btn align-right"
-    href="/">Upload Image(s)</a>
+    href="{% url 'recipe_add_image' pk=recipe.pk %}"
+    >Add Image(s)</a>
   </div>
   <p>By {{ recipe.author.name }}</p>
 
