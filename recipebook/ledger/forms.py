@@ -14,11 +14,12 @@ class RecipeImageForm(forms.ModelForm):
     class Meta:
         model = RecipeImage
         fields = ['image', 'description',]
-    
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['image'].required = True 
-        self.fields['description'].required = False 
+        self.fields['image'].required = True
+        self.fields['description'].required = False
+
 
 IngredientFormSet = inlineformset_factory(
     Recipe, RecipeIngredient,

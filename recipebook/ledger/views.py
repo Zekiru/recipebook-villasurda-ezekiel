@@ -113,8 +113,12 @@ class RecipeAddImageView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         recipe = self.get_recipe()
-        post_data = self.request.POST if self.request.method == 'POST' else None
-        file_data = self.request.FILES if self.request.method == 'POST' else None
+        if self.request.method == 'POST':
+            post_data = self.request.POST
+            file_data = self.request.FILES
+        else:
+            post_data = None
+            file_data = None
 
         context['images'] = ImageFormSet(
             post_data,
