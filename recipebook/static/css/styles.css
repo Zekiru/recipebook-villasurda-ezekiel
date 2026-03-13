@@ -19,16 +19,21 @@ header {padding: 0.5rem 0;}
 nav {
     position: sticky;
     top: 0;
-    padding: 1.4rem 0;
+    padding: 1.2rem 0;
     display: flex;
     justify-content: right;
     gap: 2rem;
-    background-color: #fafafa;
-}
 
-nav * {
-    margin-top: auto;
-    margin-bottom: auto;
+    & * {
+        margin-top: auto;
+        margin-bottom: auto;
+        background-color: #fafafa;
+    }
+
+    & p {
+        padding: 0.2rem 0.8rem;
+        border-radius: 8px;
+    }
 }
 
 h1 {
@@ -67,11 +72,11 @@ div {
 .row {
     display: flex;
     flex-direction: row;
-}
 
-.row * {
-    height: fit-content;
-    margin: auto;
+    & * {
+        height: fit-content;
+        margin: auto;
+    }
 }
 
 .form-wrapper, .form-wrapper-2 {
@@ -108,19 +113,19 @@ div {
     gap: 0.5rem;
     align-items: left;
     width: 100%;
-}
 
-.form-group input, .form-group select {
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 100%;
-}
+    & input, select {
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 100%;
+    }
 
-.form-group label {
-    display: block;
-    font-weight: 500;
-    color: #333;
+    & label {
+        display: block;
+        font-weight: 500;
+        color: #333;
+    }
 }
 
 .list-item {
@@ -223,11 +228,11 @@ footer {
     overflow-x: auto;
     overflow-y: hidden;
     gap: 0;
-}
 
-.gallery-wrapper * {
-    height: 25rem;
-    margin: auto;
+    & * {
+        height: 25rem;
+        margin: auto;
+    }
 }
 
 /* table tr:nth-child(even) {
